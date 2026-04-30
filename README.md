@@ -118,4 +118,4 @@ make
 
 ---
 
-*Đồ án được thực hiện với mục đích học tập. Tetris® là thương hiệu thuộc sở hữu của The Tetris Company.*
+Link Overleaf: https://www.overleaf.com/project/69b669a6c9c8842b2d77068d
