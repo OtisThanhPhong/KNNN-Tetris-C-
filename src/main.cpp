@@ -143,7 +143,23 @@ void removeLine() {
 
             i++;
             linesCleared++;
+            // Cứ xóa được 5 dòng thì tăng 1 level.
+            // Mỗi level giảm 30ms, nhưng tốc độ tối thiểu là 60ms.
+            int newLevel = linesCleared / 5;
+            int newSpeed = max(60, 300 - newLevel * 30);
 
+            if (newSpeed != speed) {
+                speed = newSpeed;
+
+                COORD pos = { (SHORT)(W * 2 + 2), 13 };
+                SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+                cout << "** LEVEL UP! **";
+
+                _sleep(400);
+
+                SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+                cout << "               ";
+            }
             draw();
             _sleep(150);
         }
@@ -174,7 +190,8 @@ int main()
         }
         block2Board();
         draw();
-        _sleep(200);
+        // Khi level tăng, speed giảm, khối sẽ rơi nhanh hơn.
+        _sleep(speed);
     }
     return 0;
 }
