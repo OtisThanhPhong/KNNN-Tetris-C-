@@ -1,36 +1,53 @@
-
 #include "Tetromino.h"
 
-#include <array>
-
 namespace {
-using Shape = std::array<Cell, 4>;
+constexpr int BlockSize = 4;
 
-Shape baseShape(TetrominoType type) {
-    switch (type) {
-    case TetrominoType::I:
-        return {{{-1, 0}, {0, 0}, {1, 0}, {2, 0}}};
-    case TetrominoType::O:
-        return {{{0, 0}, {1, 0}, {0, 1}, {1, 1}}};
-    case TetrominoType::T:
-        return {{{-1, 0}, {0, 0}, {1, 0}, {0, 1}}};
-    case TetrominoType::S:
-        return {{{0, 0}, {1, 0}, {-1, 1}, {0, 1}}};
-    case TetrominoType::Z:
-        return {{{-1, 0}, {0, 0}, {0, 1}, {1, 1}}};
-    case TetrominoType::J:
-        return {{{-1, 0}, {0, 0}, {1, 0}, {-1, 1}}};
-    case TetrominoType::L:
-        return {{{-1, 0}, {0, 0}, {1, 0}, {1, 1}}};
-    }
-    return {{{0, 0}, {0, 0}, {0, 0}, {0, 0}}};
-}
+char blocks[][BlockSize][BlockSize] = {
+    {{' ', 'I', ' ', ' '},
+     {' ', 'I', ' ', ' '},
+     {' ', 'I', ' ', ' '},
+     {' ', 'I', ' ', ' '}},
 
-Cell rotateCell(Cell cell, int rotation) {
+    {{' ', ' ', ' ', ' '},
+     {' ', 'O', 'O', ' '},
+     {' ', 'O', 'O', ' '},
+     {' ', ' ', ' ', ' '}},
+
+    {{' ', ' ', ' ', ' '},
+     {' ', 'T', ' ', ' '},
+     {'T', 'T', 'T', ' '},
+     {' ', ' ', ' ', ' '}},
+
+    {{' ', ' ', ' ', ' '},
+     {' ', 'S', 'S', ' '},
+     {'S', 'S', ' ', ' '},
+     {' ', ' ', ' ', ' '}},
+
+    {{' ', ' ', ' ', ' '},
+     {'Z', 'Z', ' ', ' '},
+     {' ', 'Z', 'Z', ' '},
+     {' ', ' ', ' ', ' '}},
+
+    {{' ', ' ', ' ', ' '},
+     {'J', ' ', ' ', ' '},
+     {'J', 'J', 'J', ' '},
+     {' ', ' ', ' ', ' '}},
+
+    {{' ', ' ', ' ', ' '},
+     {' ', ' ', 'L', ' '},
+     {'L', 'L', 'L', ' '},
+     {' ', ' ', ' ', ' '}}
+};
+
+Cell rotateCellInBlock(int x, int y, int rotation) {
     for (int i = 0; i < rotation; ++i) {
-        cell = Cell{-cell.y, cell.x};
+        const int oldX = x;
+        x = BlockSize - 1 - y;
+        y = oldX;
     }
-    return cell;
+
+    return Cell{x, y};
 }
 }
 
@@ -84,8 +101,16 @@ void Tetromino::rotateCounterClockwise() {
 
 void Tetromino::updateCells() {
     cells_.clear();
-    for (Cell cell : baseShape(type_)) {
-        Cell rotated = rotateCell(cell, rotation_);
-        cells_.push_back(Cell{x_ + rotated.x, y_ + rotated.y});
+    const int blockIndex = static_cast<int>(type_);
+
+    for (int row = 0; row < BlockSize; ++row) {
+        for (int column = 0; column < BlockSize; ++column) {
+            if (blocks[blockIndex][row][column] == ' ') {
+                continue;
+            }
+
+            Cell rotated = rotateCellInBlock(column, row, rotation_);
+            cells_.push_back(Cell{x_ + rotated.x, y_ + rotated.y});
+        }
     }
 }
