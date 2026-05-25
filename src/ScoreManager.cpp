@@ -21,15 +21,18 @@ void ScoreManager::addClearedLines(int count) {
 
     score_ += kLineScores[count] * (level_ + 1);
     linesCleared_ += count;
-    level_ = linesCleared_ / 10;
+    // Sử dụng kLinesPerLevel thay vì số 10
+    level_ = linesCleared_ / kLinesPerLevel; 
 }
 
 void ScoreManager::addSoftDrop() {
-    score_ += 1;
+    // Sử dụng kSoftDropScore thay vì số 1
+    score_ += kSoftDropScore; 
 }
 
 void ScoreManager::addHardDrop(int rows) {
-    score_ += rows * 2;
+    // Sử dụng kHardDropMultiplier thay vì số 2
+    score_ += rows * kHardDropMultiplier; 
 }
 
 int ScoreManager::getScore() const {
@@ -49,5 +52,6 @@ int ScoreManager::getDisplayLevel() const {
 }
 
 int ScoreManager::getFallDelayMs() const {
-    return std::max(80, 800 - level_ * 60);
+    // Thay thế 80, 800 và 60 bằng các hằng số tương ứng
+    return std::max(kMinFallDelayMs, kBaseFallDelayMs - level_ * kDelayDecreasePerLevel);
 }

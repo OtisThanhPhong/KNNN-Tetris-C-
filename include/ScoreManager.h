@@ -16,6 +16,14 @@ public:
     int getFallDelayMs() const;
 
 private:
+    // --- Các hằng số cấu hình game (Thay thế Magic Numbers) ---
+    static constexpr int kLinesPerLevel = 10;
+    static constexpr int kHardDropMultiplier = 2;
+    static constexpr int kSoftDropScore = 1;
+    static constexpr int kBaseFallDelayMs = 800;
+    static constexpr int kMinFallDelayMs = 80;
+    static constexpr int kDelayDecreasePerLevel = 60;
+
     int score_;
     int linesCleared_;
     int level_;
