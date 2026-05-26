@@ -27,16 +27,31 @@ Game hien co:
 
 ---
 
+## Nhom Thuc Hien
+
+| Thanh vien | MSSV | Phu trach |
+|---|---|---|
+| Nguyen Khanh Hung - Nhom truong | 25520640 | Tetromino & Movement |
+| Le Buu Chuong | 24520231 | Game Board & Grid Logic |
+| Vo Trung Hieu | 25520561 | Rendering & UI |
+| Pham Son Phuc | 25521438 | Game Loop & Scoring |
+| Nguyen Van E | xxxxxxxx | Input, Audio & Save |
+
+> Giang vien huong dan: Nguyen Van Toan
+> Hoc ky: Hoc ky 2 - Nam hoc 2025-2026
+
+---
+
 ## Cau Truc Du An
 
 ```text
 KNNN-Tetris-C-/
 |-- CMakeLists.txt
 |-- README.md
-|-- Phan cong.md
+|-- Phân công.md
 |-- Deadline/
-|   |-- Tuan 2.md
-|   `-- Tuan 3.md
+|   |-- Tuần 2.md
+|   `-- Tuần 3.md
 |-- assets/
 |   |-- fonts/
 |   `-- sounds/
@@ -63,7 +78,7 @@ KNNN-Tetris-C-/
     `-- Tetromino.cpp
 ```
 
-Ghi chu: hien tai du an khong co thu muc `tests/`. File phan cong cua nhom la `Phan cong.md`.
+Ghi chu: hien tai du an khong co thu muc `tests/`. File phan cong cua nhom la `Phân công.md`.
 
 ---
 
