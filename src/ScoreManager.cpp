@@ -34,6 +34,7 @@ void ScoreManager::addClearedLines(int count) {
     level_ = linesCleared_ / kLinesPerLevel; 
 }
 
+// Tặng điểm thưởng khi người chơi chủ động giữ phím xuống (Soft Drop) để khối rơi nhanh hơn
 void ScoreManager::addSoftDrop() {
     // Sử dụng kSoftDropScore thay vì số 1
     score_ += kSoftDropScore; 
