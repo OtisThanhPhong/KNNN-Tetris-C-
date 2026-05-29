@@ -109,7 +109,8 @@ void Renderer::draw(const Board& board,
                     bool gameOver) const {
     clearScreen();
 
-    std::cout << "TETRIS C++\n\n";
+    std::cout << "TETRIS C++\x1B[K\n\x1B[K\n";
+    std::cout << '+' << std::string(Board::Width * 2, '-') << "+\x1B[K\n";
     for (int y = 0; y < Board::Height; ++y) {
         std::cout << '|';
         for (int x = 0; x < Board::Width; ++x) {
@@ -153,21 +154,22 @@ void Renderer::draw(const Board& board,
             std::cout << "  Q/Esc: quit";
         }
 
-        std::cout << '\n';
+        std::cout << "\x1B[K\n";
     }
-    std::cout << '+' << std::string(Board::Width * 2, '-') << "+\n";
+    std::cout << '+' << std::string(Board::Width * 2, '-') << "+\x1B[K\n";
 
-    if (paused) {
-        std::cout << "\nPaused\n";
-    }
-    if (gameOver) {
-        std::cout << "\nGame over. Press R to restart or Q to quit.\n";
-    }
+    std::cout << "\x1B[K\n";
+    std::cout << (paused ? "Paused" : "") << "\x1B[K\n";
+    std::cout << (gameOver ? "Game over. Press R to restart or Q to quit." : "") << "\x1B[K\n";
 
     std::cout.flush();
     firstDraw_ = false;
 }
 
 void Renderer::clearScreen() const {
-    std::cout << "\x1B[2J\x1B[H";
+    if (firstDraw_) {
+        std::cout << "\x1B[2J\x1B[H";
+    } else {
+        std::cout << "\x1B[H";
+    }
 }
