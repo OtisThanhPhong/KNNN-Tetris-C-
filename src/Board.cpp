@@ -60,7 +60,7 @@ int Board::clearFullLines() {
 
     return cleared;
 }
-
+// Hàm Getter: Trả về trạng thái ID của ô tại vị trí (x, y). Trả về -1 nếu tọa độ bị sai.
 int Board::getCell(int x, int y) const {
     if (!isInside(x, y)) {
         return -1;
